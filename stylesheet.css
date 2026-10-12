@@ -1,0 +1,650 @@
+/* ==========================================================
+   PORTFOLIO — Noah CONDEMINAS
+   Layout : flexbox / grid, aucun décalage en pixels
+   ========================================================== */
+
+/* ---------- Variables ---------- */
+:root {
+    --blue: #0A66C2;
+    --blue-dark: #084d9c;
+    --bg-light: #f0f0f0;
+    --bg-grey: #e6e6e6;
+    --sidebar-bg: #c4c9d4;
+    --sidebar-w: 250px;
+    --text: #222;
+    --content-w: 900px; /* largeur max du contenu des sections */
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background-image: url("img/fondecran.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Au cas où il reste des <p1>, <p2>, <p3> dans le HTML (à remplacer par <p>) */
+p1, p2, p3 {
+    display: block;
+    margin: 0 0 1rem;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: var(--sidebar-bg);
+    color: rgb(90, 90, 90);
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.sidebar img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.sidebar > a {
+    line-height: 1;
+}
+
+.sidebar i {
+    font-size: 30px;
+    color: var(--blue);
+}
+
+.sidebar h3 {
+    margin: 1rem 0 0;
+    align-self: flex-start;
+}
+
+.sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.sidebar ul a {
+    display: block;
+    padding: 0.9rem 0.5rem;
+    color: black;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar ul a:hover,
+.sidebar ul a:focus-visible {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: var(--blue-dark);
+}
+
+/* ---------- Contenu principal ---------- */
+.main-content {
+    flex: 1;
+    min-width: 0; /* évite le débordement horizontal en flex */
+    margin-left: var(--sidebar-w);
+}
+
+/* Toutes les sections : bande pleine largeur, contenu centré à 900px max */
+.main-content > section {
+    position: relative;
+    padding: 5rem max(2rem, calc((100% - var(--content-w)) / 2));
+    scroll-margin-top: 0;
+}
+
+/* Alternance de fonds */
+#about,
+#bts,
+#skills,
+#veille {
+    background-color: var(--bg-light);
+}
+
+#certif,
+#projets {
+    background-color: rgba(230, 230, 230, 0.91);
+}
+
+/* Titres de section */
+.main-content > section:where(:not(#hero)) h1,
+#about h2 {
+    margin: 0 0 1rem;
+    color: var(--blue-dark);
+    font-size: 2rem;
+    line-height: 1.2;
+}
+
+.main-content > section:where(:not(#hero)) h2 {
+    margin: 2rem 0 0.75rem;
+}
+
+.main-content > section:where(:not(#hero)) h3 {
+    margin: 1.5rem 0 0.5rem;
+    font-size: 1.4rem;
+}
+
+.main-content > section p {
+    max-width: 75ch;
+    font-size: 1.1rem;
+    margin: 0 0 1rem;
+}
+
+.main-content > section ul {
+    font-size: 1.1rem;
+    margin: 0.5rem 0 1rem;
+    padding-left: 1.5rem;
+}
+
+/* Les <br> forcés ne servent plus à rien : le navigateur gère les retours à la ligne */
+.main-content > section p br,
+#contact br {
+    display: none;
+}
+
+/* ---------- Hero ---------- */
+#hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    padding: 2rem;
+}
+
+.site-header {
+    text-align: center;
+}
+
+.site-header h1 {
+    margin: 0;
+    color: white;
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.site-header h2 {
+    margin: 1rem 0 0;
+    color: rgb(209, 202, 202);
+    font-size: clamp(1.4rem, 3.5vw, 2.5rem);
+    font-weight: 300;
+}
+
+/* Texte animé : à garder discret */
+.animated-color {
+    animation: colorChange 3s infinite alternate;
+}
+
+@keyframes colorChange {
+    0%   { color: #ff6b6b; }
+    20%  { color: #ff8e72; }
+    40%  { color: #ffb347; }
+    60%  { color: #ffd166; }
+    80%  { color: #caffbf; }
+    100% { color: #4dffb7; }
+}
+
+.gradient-text {
+    text-shadow: -3px -3px 10px rgba(255, 255, 255, 0.5);
+}
+
+/* ---------- Boutons ---------- */
+.btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    border: none;
+    background-color: var(--blue);
+    color: white;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+    background-color: var(--blue-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- À propos ---------- */
+#about .btn {
+    margin-top: 1rem;
+}
+
+/* ---------- BTS SIO : indentation progressive propre ---------- */
+#bts::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 2px;
+    background-color: var(--blue-dark);
+}
+
+#bts h2 {
+    color: var(--blue-dark);
+}
+
+/* ---------- Certifications ---------- */
+#certif img {
+    display: inline-block;
+    width: min(100%, 420px);
+    margin: 1rem 1rem 1rem 0;
+    vertical-align: top;
+}
+
+/* ---------- Compétences ---------- */
+#skills ul ul {
+    margin: 0.25rem 0 0.5rem;
+}
+
+#skills img {
+    display: inline-block;
+    height: 70px;
+    width: auto;
+    margin: 1rem 1.5rem 1rem 0;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+/* ---------- Projets : cartes ---------- */
+#projets .rectangle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 700px;
+    min-height: 120px;
+    margin: 1.5rem 0;
+    padding: 1.25rem 1.5rem;
+    background-color: white;
+    border: 1.5px solid white;
+    border-radius: 8px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#projets .rectangle h1 {
+    margin: 0;
+    color: grey;
+    font-size: 1.2rem;
+}
+
+#projets .rectangle .btn {
+    align-self: flex-end;
+    padding: 0.6rem 1.8rem;
+    font-weight: 500;
+    border-radius: 6px;
+}
+
+/* Les titres "Mon parcours professionnel / scolaire" gardent le bleu */
+#projets > h1 {
+    margin-top: 1.5rem;
+}
+
+/* ---------- Veille ---------- */
+#veille h3 {
+    color: var(--blue);
+    font-size: 1.5rem;
+}
+
+#veille .box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.75rem;
+    max-width: 700px;
+    margin: 1rem 0 2rem;
+    padding: 1.25rem 1.5rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+#veille .box i {
+    font-size: 30px;
+    color: var(--blue);
+}
+
+#veille .box a {
+    color: black;
+    font-size: 1.25rem;
+    text-decoration: none;
+}
+
+#veille .box a:hover {
+    color: var(--blue);
+    text-decoration: underline;
+}
+
+#veille .box p {
+    flex-basis: 100%;
+    margin: 0.5rem 0 0;
+    font-size: 1rem;
+}
+
+/* ---------- Contact : grille 2 colonnes ---------- */
+#contact {
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) minmax(0, 2fr);
+    grid-template-areas:
+        "titre  titre"
+        "accroche accroche"
+        "infos  form"
+        ".      envoi";
+    gap: 1.5rem 2rem;
+    align-items: start;
+    background-color: rgba(20, 24, 35, 0.6); /* lisibilité sur l'image de fond */
+}
+
+#contact h1 {
+    grid-area: titre;
+    margin: 0;
+    color: white;
+}
+
+#contact > h2 {
+    grid-area: accroche;
+    margin: 0;
+    color: rgb(209, 202, 202);
+}
+
+/* Ancien rectangle vide : à supprimer du HTML, masqué ici en attendant */
+#contact > .rectangle {
+    display: none;
+}
+
+#contact .rectangle2 {
+    grid-area: infos;
+    padding: 1.25rem 1.5rem;
+    background-color: grey;
+    border: 4px solid #2c3e50;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+    overflow-wrap: anywhere;
+}
+
+#contact .rectangle2 h1 {
+    margin: 1rem 0 0.25rem;
+    color: var(--blue);
+    font-size: 1.3rem;
+}
+
+#contact .rectangle2 h1:first-child {
+    margin-top: 0;
+}
+
+#contact .rectangle2 p {
+    margin: 0;
+    color: white;
+    font-size: 1rem;
+}
+
+#contact .contact-left {
+    grid-area: form;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 0;
+}
+
+#contact .contact-inputs {
+    width: 100%;
+    max-width: 500px;
+    height: 50px;
+    padding: 0 20px;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    outline: none;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666;
+}
+
+#contact .contact-left textarea {
+    height: 160px;
+    padding-top: 15px;
+    border-radius: 24px;
+    resize: vertical;
+}
+
+#contact .contact-inputs:focus {
+    border-color: #ff994f;
+}
+
+/* Bouton Envoyer (lien ou <button> placé sous le formulaire) */
+#contact .btn {
+    grid-area: envoi;
+    justify-self: start;
+}
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+/* Tablette : le contact passe sur une seule colonne */
+@media (max-width: 1000px) {
+    #contact {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "titre"
+            "accroche"
+            "infos"
+            "form"
+            "envoi";
+    }
+}
+
+/* Mobile : la sidebar devient une barre en haut de page */
+@media (max-width: 800px) {
+    body {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem 1rem;
+        padding: 0.75rem 1rem;
+    }
+
+    .sidebar img {
+        width: 44px;
+        height: 44px;
+    }
+
+    .sidebar h3 {
+        display: none;
+    }
+
+    .sidebar ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: auto;
+    }
+
+    .sidebar ul a {
+        padding: 0.4rem 0.6rem;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .main-content > section {
+        padding: 3rem 1.25rem;
+        scroll-margin-top: 90px; /* hauteur approximative de la barre */
+    }
+
+    #hero {
+        min-height: 80vh;
+    }
+
+    #projets .rectangle .btn {
+        align-self: stretch;
+        text-align: center;
+    }
+}
+
+/* Respect des préférences d'accessibilité */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .btn {
+        transition: none;
+    }
+}
+
+
+/* ==========================================================
+   FENÊTRES (pop-up) DES PROJETS
+   ========================================================== */
+.modal {
+    width: min(700px, calc(100% - 2rem));
+    max-height: 85vh;
+    padding: 0;
+    border: none;
+    border-radius: 12px;
+    background: white;
+    color: var(--text);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    overflow-y: auto;
+}
+
+.modal::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.modal[open] {
+    animation: modalIn 0.25s ease;
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.modal-content {
+    padding: 1.75rem 2rem 2rem;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.modal h2 {
+    margin: 0;
+    color: var(--blue-dark);
+    font-size: 1.6rem;
+    line-height: 1.25;
+}
+
+.modal h3 {
+    margin: 1.5rem 0 0.4rem;
+    color: var(--blue);
+    font-size: 1.15rem;
+}
+
+.modal p,
+.modal ul {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+}
+
+.modal ul {
+    padding-left: 1.4rem;
+}
+
+.modal img {
+    display: block;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+}
+
+.modal-close {
+    flex-shrink: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: none;
+    border-radius: 50%;
+    background: var(--bg-light);
+    color: #444;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.modal-close:hover,
+.modal-close:focus-visible {
+    background: #d5d5d5;
+}
+
+@media (max-width: 800px) {
+    .modal-content {
+        padding: 1.25rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .modal[open] {
+        animation: none;
+    }
+}
